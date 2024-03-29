@@ -1,5 +1,5 @@
 .play-cursor {
-  cursor: url("./assets/images/cage-svgrepo-com-resized.svg"), auto;
+  cursor: url("../images/cage-svgrepo-com-resized.svg"), auto;
 }
 
 * {
@@ -10,7 +10,7 @@
 body {
   height: 100vh;
   width: 100vw;
-  background-image: url("./assets/images/game-bg.jpg");
+  background-image: url("../images/game-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -37,23 +37,23 @@ body {
 }
 
 .lion {
-  background-image: url("./assets/images/lion.png");
+  background-image: url("../images/lion.png");
 }
 
 .elephant {
-  background-image: url("./assets/images/elephant.png");
+  background-image: url("../images/elephant.png");
 }
 
 .koala {
-  background-image: url("./assets/images/koala.png");
+  background-image: url("../images/koala.png");
 }
 
 .loup {
-  background-image: url("./assets/images/loup.png");
+  background-image: url("../images/loup.png");
 }
 
 .panda {
-  background-image: url("./assets/images/panda.png");
+  background-image: url("../images/panda.png");
 }
 
 #counter {
