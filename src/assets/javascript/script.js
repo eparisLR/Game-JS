@@ -1,11 +1,31 @@
 import { Character } from "./Character.js";
 import { Counter } from "./Counter.js";
 import { CursorSubject } from "./CursorSubject.js";
-import { TimerSubject } from "./TimerSubject.js";
 import { Life } from "./Life.js";
+import { Timer } from "./Timer.js";
 
-const playBtn = document.getElementById("playBtn");
-const timer = new TimerSubject();
+const generateLevels = () => {
+  for (let i = 0; i < 100; i++) {
+    let btn = document.createElement("button");
+    btn.classList.add("play-button");
+    btn.setAttribute("data-multiplier", i + 1);
+    btn.setAttribute("type", "button");
+    btn.innerText = `Niveau ${i + 1}`;
+    document.body.appendChild(btn);
+  }
+};
+
+const hidePlayButtons = () => {
+  const playBtnList = document.getElementsByClassName("play-button");
+  for (let btn of playBtnList) {
+    btn.style.visibility = "hidden";
+  }
+};
+
+generateLevels();
+
+const playBtnList = document.getElementsByClassName("play-button");
+const timer = new Timer();
 const cursorSubject = new CursorSubject();
 const character = new Character();
 const counter = new Counter();
@@ -21,10 +41,19 @@ cursorSubject.subscribe(character);
 character.subscribe(counter);
 character.subscribe(life);
 
-playBtn.addEventListener("click", () => {
-  playBtn.style.visibility = "hidden";
-  document.body.classList.add("play-cursor");
+// Counter subscriptions
+counter.subscribe(timer);
 
-  timer.startSpawnTimer();
-  timer.startAnimationTimer();
-});
+// Life subscriptions
+life.subscribe(timer);
+
+for (let btn of playBtnList) {
+  btn.addEventListener("click", () => {
+    hidePlayButtons();
+    document.body.classList.add("play-cursor");
+    counter.setTarget(btn);
+
+    timer.startSpawnTimer(btn);
+    timer.startAnimationTimer(btn);
+  });
+}

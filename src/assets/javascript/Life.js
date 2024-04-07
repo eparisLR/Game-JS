@@ -1,10 +1,12 @@
 import { EventType } from "./Event.type.js";
+import { LifeSubject } from "./LifeSubject.js";
 
-export class Life {
+export class Life extends LifeSubject {
   lives;
   livesCounterElement = document.getElementById("life");
 
   constructor() {
+    super();
     this.lives = 5;
     this.displayLife();
   }
@@ -13,6 +15,9 @@ export class Life {
     if (event.event === EventType.LIFE_LOST) {
       this.lives = this.lives - 1;
       this.displayLife();
+      if (life <= 0) {
+        this.notify({ event: EventType.GAME_OVER });
+      }
     }
   }
 

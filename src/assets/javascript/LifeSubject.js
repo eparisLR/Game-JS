@@ -1,6 +1,4 @@
-import { EventType } from "./Event.type.js";
-
-export class TimerSubject {
+export class LifeSubject {
   observers;
 
   constructor() {
@@ -12,7 +10,7 @@ export class TimerSubject {
   }
 
   unsubscribe(object) {
-    this.observers = this.observers.filter((observer) => observer !== object);
+    this.observers.filter((observer) => observer !== object);
   }
 
   notify(data) {
