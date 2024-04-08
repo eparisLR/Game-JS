@@ -3,26 +3,10 @@ import { Counter } from "./Counter.js";
 import { CursorSubject } from "./CursorSubject.js";
 import { Life } from "./Life.js";
 import { Timer } from "./Timer.js";
+import { Menu } from "./Menu.js";
 
-const generateLevels = () => {
-  for (let i = 0; i < 100; i++) {
-    let btn = document.createElement("button");
-    btn.classList.add("play-button");
-    btn.setAttribute("data-multiplier", i + 1);
-    btn.setAttribute("type", "button");
-    btn.innerText = `Niveau ${i + 1}`;
-    document.body.appendChild(btn);
-  }
-};
-
-const hidePlayButtons = () => {
-  const playBtnList = document.getElementsByClassName("play-button");
-  for (let btn of playBtnList) {
-    btn.style.visibility = "hidden";
-  }
-};
-
-generateLevels();
+const menu = new Menu();
+menu.createLevelsButtons();
 
 const playBtnList = document.getElementsByClassName("play-button");
 const timer = new Timer();
@@ -43,15 +27,21 @@ character.subscribe(life);
 
 // Counter subscriptions
 counter.subscribe(timer);
+counter.subscribe(menu);
 
 // Life subscriptions
 life.subscribe(timer);
+life.subscribe(menu);
+life.subscribe(counter);
 
 for (let btn of playBtnList) {
   btn.addEventListener("click", () => {
-    hidePlayButtons();
+    menu.hideLevelsButtons();
     document.body.classList.add("play-cursor");
     counter.setTarget(btn);
+
+    life.displayLife();
+    counter.displayCounter();
 
     timer.startSpawnTimer(btn);
     timer.startAnimationTimer(btn);

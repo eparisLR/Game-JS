@@ -10,16 +10,21 @@ export class Counter extends CounterSubject {
   constructor() {
     super();
     this.counter = 0;
-    this.displayCounter();
   }
 
   update(event) {
-    if (event.event === EventType.CHARACTER_HITTED) {
-      this.counter = this.counter + 1;
-      this.displayCounter();
-      if (this.counter >= this.target) {
-        this.notify({ event: EventType.LEVEL_COMPLETE });
-      }
+    switch (event.event) {
+      case EventType.CHARACTER_HITTED:
+        this.counter = this.counter + 1;
+        this.displayCounter();
+        if (this.counter >= this.target) {
+          this.notify({ event: EventType.LEVEL_COMPLETE });
+        }
+        break;
+
+      case EventType.GAME_OVER:
+        this.clearCounter();
+        break;
     }
   }
 
@@ -29,5 +34,10 @@ export class Counter extends CounterSubject {
 
   setTarget(levelClicked) {
     this.target = Number(levelClicked.dataset.multiplier) * this.minimum;
+  }
+
+  clearCounter() {
+    this.counterElement.innerText = "";
+    this.counter = 0;
   }
 }

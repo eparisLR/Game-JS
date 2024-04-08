@@ -39,21 +39,24 @@ export class Character extends CharacterSubject {
   }
 
   spawn() {
-    const characterHTML = document.createElement("div");
-    const randomSkin = Math.floor(
-      Math.random() * this.characterAvailable.length
-    );
-    const randomPosition = Math.floor(
-      Math.random() * (window.screen.width - 300)
-    ).toString();
-    characterHTML.classList.add(
-      "character",
-      this.characterAvailable[randomSkin]
-    );
-    characterHTML.style.top = "1px";
-    characterHTML.style.left = randomPosition + "px";
-    this.characters.push(characterHTML);
-    document.body.appendChild(characterHTML);
+    const currentCharactersSpawned = document.querySelectorAll(".character");
+    if (currentCharactersSpawned.length < 7) {
+      const characterHTML = document.createElement("div");
+      const randomSkin = Math.floor(
+        Math.random() * this.characterAvailable.length
+      );
+      const randomPosition = Math.floor(
+        Math.random() * (window.screen.width - 300)
+      ).toString();
+      characterHTML.classList.add(
+        "character",
+        this.characterAvailable[randomSkin]
+      );
+      characterHTML.style.top = "1px";
+      characterHTML.style.left = randomPosition + "px";
+      this.characters.push(characterHTML);
+      document.body.appendChild(characterHTML);
+    }
   }
 
   isCollide(cursorPosition) {

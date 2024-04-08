@@ -8,20 +8,25 @@ export class Life extends LifeSubject {
   constructor() {
     super();
     this.lives = 5;
-    this.displayLife();
   }
 
   update(event) {
     if (event.event === EventType.LIFE_LOST) {
       this.lives = this.lives - 1;
       this.displayLife();
-      if (life <= 0) {
+      if (this.lives <= 0) {
         this.notify({ event: EventType.GAME_OVER });
+        this.clearLife();
       }
     }
   }
 
   displayLife() {
     this.livesCounterElement.innerText = this.lives;
+  }
+
+  clearLife() {
+    this.livesCounterElement.innerText = "";
+    this.lives = 5;
   }
 }
