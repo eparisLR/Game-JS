@@ -5,14 +5,9 @@ export class Timer extends TimerSubject {
   animationTimer;
   spawnTimer;
   update(event) {
-    switch (event.event) {
-      case EventType.GAME_OVER:
-        this.stopAnimationTimer();
-        this.stopSpawnTimer();
-      case EventType.LEVEL_COMPLETE:
-        this.stopAnimationTimer();
-        this.stopSpawnTimer();
-    }
+    console.log(event);
+    this.stopAnimationTimer();
+    this.stopSpawnTimer();
   }
 
   startAnimationTimer(levelClicked) {

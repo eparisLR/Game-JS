@@ -15,7 +15,7 @@ export class Life extends LifeSubject {
     if (event.event === EventType.LIFE_LOST) {
       this.lives = this.lives - 1;
       this.displayLife();
-      if (life <= 0) {
+      if (this.lives <= 0) {
         this.notify({ event: EventType.GAME_OVER });
       }
     }
